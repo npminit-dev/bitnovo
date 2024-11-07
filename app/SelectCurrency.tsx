@@ -7,13 +7,23 @@ import { View, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native
 import 'react-native-get-random-values';
 import { v4 as uuid } from "uuid";
 import { CURRENCIES } from "@/constants/data";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/appStore";
+import { setIsoCurrency } from "@/store/slice";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 export default function SelectCurrency() {
 
   const [search, setSearch] = useState<string>('')
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSelectCurrency = (ISOCode:string) => {
+    dispatch(setIsoCurrency(ISOCode))
+    router.back()
+  }
 
   return (
-    <View style={styles.viewBox}>
+    <Animated.View style={styles.viewBox} entering={FadeIn}>
       <Header title="Selecciona una divisa" backArrow backCB={() => router.navigate('/CreatePayment')}/>
       <KeyboardAvoidingView style={styles.bodyBox}>
         <SearchBar value={search} setValue={setSearch}/>
@@ -25,13 +35,14 @@ export default function SelectCurrency() {
               title={currency.currencyName}
               subtitle={currency.ISOCode}
               img={currency.img}
-              appearDelay={(i+1) * 40} 
+              appearDelay={(i+1) * 40}
+              action={() => handleSelectCurrency(currency.ISOCode)}
             />
           })
         }
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+    </Animated.View>
   )
 }
 

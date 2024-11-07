@@ -1,18 +1,17 @@
 import { colors } from "@/constants/colors";
 import { BlurView } from "expo-blur";
-import { Dispatch, SetStateAction } from "react";
 import { Modal, View, Text, StyleSheet } from "react-native";
 import MainButton from "./MainButton";
 import SuccessIcon from "./SVGComponents/SucessIcon";
 
-type WhatsAppConfirmModalProps = { open:boolean, setOpen: Dispatch<SetStateAction<boolean>> }
+type SuccessModalProps = { open:boolean, handleClose:() => void, title:string, message:string }
 
-export default function WhatsAppConfirmModal({ open, setOpen }: WhatsAppConfirmModalProps) {
+export default function SuccessModal({ open, handleClose, title, message }: SuccessModalProps) {
   return (
     <Modal 
       visible={open} 
       animationType="fade"
-      onRequestClose={() => setOpen(false)}
+      onRequestClose={handleClose}
       transparent={true}
       style={styles.modal}
     >
@@ -23,12 +22,12 @@ export default function WhatsAppConfirmModal({ open, setOpen }: WhatsAppConfirmM
         blurReductionFactor={30}
       />
       <View style={styles.modalBoxWrapper}>
-      <View style={styles.blurTint} onTouchStart={() => setOpen(false)}/>
+      <View style={styles.blurTint} onTouchStart={handleClose}/>
         <View style={styles.modalBox}>
           <SuccessIcon height={80} width={80}/>
-          <Text style={styles.modalTitle}>Solicitud enviada</Text>
-          <Text style={styles.modalMessage}>Tu solicitud de pago enviada ha sido enviado con éxito por WhatsApp .</Text>
-          <MainButton text="Entendido" action={() => setOpen(false)}/>
+          <Text style={styles.modalTitle}>{title}</Text>
+          <Text style={styles.modalMessage}>{message}</Text>
+          <MainButton text="Entendido" action={handleClose}/>
         </View>
       </View>
     </Modal>
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     height: '100%',
     width: '100%',
+    zIndex: 100
   },
 
   blurBackground: {

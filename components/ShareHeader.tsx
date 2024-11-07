@@ -3,15 +3,18 @@ import { StyleSheet, View, Text } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import MoneyTimeIcon from "./SVGComponents/MoneyTimeIcon";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { formatCurrency } from "react-native-format-currency";
 
-export default function ShareHeader() {
+export type ShareHeaderProps = { amount:string, isoCode:string }
+
+export default function ShareHeader({ amount, isoCode }: ShareHeaderProps) {
   return (
     <Animated.View style={styles.headerBox} entering={FadeIn.duration(400)}>
       <View style={styles.contentBox}>
         <MoneyTimeIcon height={70} width={70}/>
         <View style={styles.infoBox}>
           <Text style={styles.infoTitle}>Solicitud de pago</Text>
-          <Text style={styles.infoAmount}>56,00 €</Text>
+          <Text style={styles.infoAmount}>{amount} {formatCurrency({ amount: parseInt(amount), code: isoCode })[2]}</Text>
         </View>
       </View>
       <Text style={styles.instructions}>Comparte el enlace de pago con el cliente</Text>

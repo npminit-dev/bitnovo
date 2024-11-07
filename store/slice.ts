@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './appStore';
+import { REQUEST_HEADERS } from '@/constants/data';
 
 interface PaymentState {
   isoCurrency: string;
-  amount: number;
+  amount: string;
   paymentConcept: string;
   paymentGateway: string | null;
   paymentIdentifier: string | null;
@@ -13,7 +14,7 @@ interface PaymentState {
 
 const initialState: PaymentState = {
   isoCurrency: 'EUR',
-  amount: 0,
+  amount: '',
   paymentConcept: '',
   paymentGateway: null,
   paymentIdentifier: null,
@@ -21,22 +22,17 @@ const initialState: PaymentState = {
   phoneNumber: '300 678 9087',
 };
 
-export const createPayment = createAsyncThunk(
-  'payment/createPayment',
-  async (_, { rejectWithValue, getState }) => {
+export const createPayment = createAsyncThunk('payment/createPayment', async (_, { rejectWithValue, getState }) => {
     const state = getState() as RootState
+    const formData = new FormData();
+    formData.append('expected_output_amount', state.payment.amount.toString());
+    formData.append('fiat', state.payment.isoCurrency);
+    formData.append('notes', state.payment.paymentConcept);
+
     try {
-      const response = await fetch('https://api.example.com/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Device-Id': process.env.EXPO_PUBLIC_X_DEVICE_ID || '',
-        },
-        body: JSON.stringify({
-          isoCurrency: state.payment.isoCurrency,
-          amount: state.payment.amount,
-          paymentConcept: state.payment.paymentConcept,
-        }),
+      const response = await fetch('https://payments.pre-bnvo.com/api/v1/orders/', {
+        ...REQUEST_HEADERS.post_order,
+        body: formData
       });
 
       if (!response.ok) {
@@ -57,7 +53,7 @@ const paymentSlice = createSlice({
   reducers: {
     resetState: (state) => {
       state.isoCurrency = 'EUR';
-      state.amount = 0;
+      state.amount = '';
       state.paymentConcept = '';
       state.paymentGateway = null;
       state.paymentIdentifier = null;
@@ -67,7 +63,7 @@ const paymentSlice = createSlice({
     setIsoCurrency: (state, action: PayloadAction<string>) => {
       state.isoCurrency = action.payload;
     },
-    setAmount: (state, action: PayloadAction<number>) => {
+    setAmount: (state, action: PayloadAction<string>) => {
       state.amount = action.payload;
     },
     setPaymentConcept: (state, action: PayloadAction<string>) => {

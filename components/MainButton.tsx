@@ -35,7 +35,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Mulish-SemiBold',
   },
-
-
-
 })

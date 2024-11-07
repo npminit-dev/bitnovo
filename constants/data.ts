@@ -40,6 +40,13 @@ export const REQUEST_HEADERS = {
   get_currency: {
     "X-Device-Id": process.env.EXPO_PUBLIC_X_DEVICE_ID as string,
     "Content-Type": 'application/json'
+  },
+  post_order: {
+    headers: {
+      "X-Device-Id": process.env.EXPO_PUBLIC_X_DEVICE_ID as string,
+      "Content-Type": 'multipart/form-data'
+    },
+    method: 'POST'
   }
 }
 
@@ -85,6 +92,11 @@ export const COUNTRIES: Array<Country> = [
     name: 'Honduras',
     code: '+504',
     img: require('../assets/images/flags/honduras.png')
+  },
+  {
+    name: 'Argentina',
+    code: '+54',
+    img: require('../assets/images/flags/argentina.png')
   }
 ]
 

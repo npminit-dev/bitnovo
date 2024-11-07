@@ -1,25 +1,35 @@
 import { colors } from "@/constants/colors";
-import { Dispatch, SetStateAction } from "react";
+import { RootState } from "@/store/appStore";
+import { setPaymentConcept } from "@/store/slice";
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { Dispatch, SetStateAction, useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
 
-type ConceptProps = { descripction: string, setDescripction: Dispatch<SetStateAction<string>> }
+type ConceptProps = {
+  descripction: string, dispatch: ThunkDispatch<{
+    payment: RootState;
+  }, undefined, UnknownAction> & Dispatch<UnknownAction>
+}
 
-export default function Concept({ descripction, setDescripction }: ConceptProps) {
+export default function Concept({ descripction, dispatch }: ConceptProps) {
+
+  const [isFocus, setIsFocus] = useState<boolean>(false)
+
   return (
     <View style={styles.conceptBox}>
-      <Text style={styles.label}>
-        Concepto
-      </Text>
+      <Text style={styles.label}>Concepto</Text>
       <TextInput
-        style={styles.input}
+        style={{...styles.input, ...(isFocus ? styles.inputFocused : {})}}
         placeholder={'Añade descripción del pago'}
         placeholderTextColor={colors.SECONDARY_TEXT}
         textAlignVertical="center"
         maxLength={140}
         multiline
         value={descripction}
-        onChangeText={(text) => setDescripction(text)}
+        onChangeText={(text) => dispatch(setPaymentConcept(text))}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
       />
       <View style={styles.charLimitBox}>
         <Text style={styles.charLimit}>{descripction.length}/140 caracteres</Text>
@@ -57,6 +67,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.GRAYBORDER,
     borderRadius: 6
+  },
+
+  inputFocused: {
+    borderColor: colors.SPECIAL_TEXT
   },
 
   charLimitBox: {

@@ -7,65 +7,70 @@ import WalletAddIcon from "@/components/SVGComponents/WalletAddIcon";
 import WhatsAppIcon from "@/components/SVGComponents/WhatsAppIcon";
 import { colors } from "@/constants/colors";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, View, Text, TextInput } from "react-native";
+import { Pressable, StyleSheet, View, Text, TextInput, Linking } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
 import Animated, { FadeInDown } from "react-native-reanimated";
-import { useState } from "react";
-import WhatsAppConfirmModal from "@/components/WhatsappConfirmModal";
+import { useEffect, useState } from "react";
+import SuccessModal from "@/components/SuccessModal";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/appStore";
+import { resetState, setPhoneNumber } from "@/store/slice";
+import useWebSocket from "@/hooks/useWebSocket";
+import { Share } from "react-native";
+import QRShare from "@/components/QRShare";
+import PhoneShare from "@/components/PhoneShare";
+import EmailShare from "@/components/EmailShare";
+import AppsShare from "@/components/AppsShare";
+import NewPaymentButton from "@/components/NewPaymentButton";
 
 export default function SharePayment() {
 
-  const [phoneNumber, setPhoneNumber] = useState<string>('200 5869 75423')
-  const [countryCode, setCountryCode] = useState<string>('+240')
+  const dispatch = useDispatch<AppDispatch>();
+  const { 
+    isoCurrency, 
+    phoneNumber, 
+    phoneCode, 
+    amount, 
+    paymentGateway, 
+    paymentIdentifier 
+  } = useSelector((state: RootState) => state.payment);
+
+  useEffect(() => {
+    console.log(paymentGateway)
+  }, [])
+
+  const paid = useWebSocket(paymentIdentifier as string)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+  const handleNewPayment = () => {
+    dispatch(resetState())
+    router.navigate('/CreatePayment')
+  }
 
   return (
     <View style={styles.mainBox}>
       <View style={styles.contentBox}>
-        <ShareHeader />
+        <ShareHeader amount={amount} isoCode={isoCurrency}/>
         <Animated.View entering={FadeInDown.duration(400)}>
-          <View style={styles.qrShareBox}>
-            <View style={{...styles.shareBox, flex: 1}}>
-              <LinkIcon height={20} width={20} />
-              <Text style={styles.shareText}>pay.bitnovo.com/59f9g9</Text>
-            </View>
-            <Pressable style={styles.qrShareButton}>
-              <ScanBarCode height={20} width={20} />
-            </Pressable>
-          </View>
-          <View style={styles.shareBox}>
-            <SmsIcon height={20} width={20} />
-            <Text style={styles.shareText}>Enviar por correo electrónico</Text>
-          </View>
-          <View style={{...styles.shareBox, justifyContent: 'space-between'}}>
-            <View style={{...styles.shareBox, borderWidth: 0, paddingHorizontal: 0}}>
-              <WhatsAppIcon height={20} width={20}/>
-              <Pressable onPress={() => router.navigate('/SelectCountryCode')} style={styles.countryCodeButton}>
-                <Text style={styles.shareText}>{countryCode}</Text>
-                <Entypo name="chevron-small-down" size={24} color={colors.PRIMARY_TEXT} />
-              </Pressable>
-              <TextInput 
-                value={phoneNumber}
-                keyboardType="numeric"
-                onChangeText={(text) => setPhoneNumber(text)}
-                style={{...styles.shareText, marginLeft: 8}}
-              />
-            </View>
-            <Pressable style={styles.sendButton}>
-              <Text onPress={() => setModalOpen(true)} style={styles.sendButtonText}>Enviar</Text>
-            </Pressable>
-          </View>
-          <View style={styles.shareBox}>
-            <ExportIcon height={20} width={20} />
-            <Text style={styles.shareText}>Compartir con otras aplicaciones</Text>
-          </View>
+          <QRShare paymentGateway={paymentGateway as string}/>
+          <EmailShare paymentGateway={paymentGateway} paymentIdentifier={paymentIdentifier}/>
+          <PhoneShare {...{ phoneCode, phoneNumber, paymentGateway, setModalOpen, dispatch }}/>
+          <AppsShare paymentGateway={paymentGateway}/>
         </Animated.View>
       </View>
-      <Pressable style={styles.newRequestBox} onPress={() => router.navigate('/CreatePayment')}>
-        <Text style={styles.title}>Nueva solicitud</Text>
-        <WalletAddIcon height={20} width={20} />
-      </Pressable>
-      <WhatsAppConfirmModal open={modalOpen} setOpen={setModalOpen}/>
+      <NewPaymentButton dispatch={dispatch} handleNewPayment={handleNewPayment}/>
+      <SuccessModal 
+        open={modalOpen} 
+        handleClose={() => setModalOpen(false)} 
+        title="Solicitud enviada" 
+        message="Tu solicitud de pago enviada ha sido enviado con éxito por WhatsApp ."
+      />
+      <SuccessModal 
+        open={paid} 
+        handleClose={handleNewPayment} 
+        title="Pago confirmado" 
+        message="Tu pago ha sido registrado con éxito, serás dirigido a la página principal"
+      />
     </View>
   )
 }

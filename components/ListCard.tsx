@@ -1,27 +1,29 @@
-import { Image, StyleSheet, View, Text, ImageSourcePropType } from "react-native";
+import { Image, StyleSheet, View, Text, ImageSourcePropType, Pressable } from "react-native";
 import Entypo from '@expo/vector-icons/Entypo';
 import { colors } from "@/constants/colors";
-import Animated, { FadeInLeft } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 
-type ListCardProps = { title:string, subtitle:string, img:string, appearDelay?:number }
+type ListCardProps = { title:string, subtitle:string, img:string, appearDelay?:number, action?:() => void }
 
-export default function ListCard({ title, subtitle, img, appearDelay }: ListCardProps) {
+export default function ListCard({ title, subtitle, img, appearDelay, action }: ListCardProps) {
   return (
-    <Animated.View style={styles.mainBox} entering={FadeInLeft.delay(appearDelay || 0)}>
-      <Image source={img as ImageSourcePropType} style={styles.image}/>
-      <View style={styles.contentBox}>
-        <View style={styles.dataBox}>
-          <Text style={styles.name}>{ title }</Text>
-          <Text style={styles.symbol}>{ subtitle }</Text>
+    <Animated.View entering={FadeIn.delay(appearDelay || 0)}>
+      <Pressable style={styles.pressableBox} onPress={action}>
+        <Image source={img as ImageSourcePropType} style={styles.image}/>
+        <View style={styles.contentBox}>
+          <View style={styles.dataBox}>
+            <Text style={styles.name}>{ title }</Text>
+            <Text style={styles.symbol}>{ subtitle }</Text>
+          </View>
+          <Entypo name="chevron-small-right" size={24} color={colors.SECONDARY_TEXT} />
         </View>
-        <Entypo name="chevron-small-right" size={24} color={colors.SECONDARY_TEXT} />
-      </View>
+      </Pressable>
     </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
-  mainBox: {
+  pressableBox: {
     height: 52,
     width: '100%',
     display: 'flex',
