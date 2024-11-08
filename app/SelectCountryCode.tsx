@@ -4,11 +4,13 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 import ListCard from "@/components/ListCard";
+import 'react-native-get-random-values';
 import { v4 as uuid } from "uuid";
 import { COUNTRIES } from "@/constants/data";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/appStore";
 import { setPhoneCode } from "@/store/slice";
+import Animated, { FadeInLeft } from "react-native-reanimated";
 
 export default function SelectCountryCode() {
 
@@ -21,7 +23,7 @@ export default function SelectCountryCode() {
   }
 
   return (
-    <View style={styles.mainBox}>
+    <Animated.View style={styles.mainBox} entering={FadeInLeft}>
       <Header title="Seleccionar país" backArrow backCB={() => router.navigate('/SharePayment')} />
       <View style={styles.contentBox}>
         <SearchBar value={search} setValue={setSearch} />
@@ -53,7 +55,7 @@ export default function SelectCountryCode() {
           }
         </ScrollView>
       </View>
-    </View>
+    </Animated.View>
   )
 }
 

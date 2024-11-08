@@ -19,6 +19,9 @@
     },
     "production": {
       "autoIncrement": true,
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_X_DEVICE_ID": "c38f9e55-bbed-4dd8-b821-ed968e219192"
       }

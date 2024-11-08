@@ -10,7 +10,7 @@ import { CURRENCIES } from "@/constants/data";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/appStore";
 import { setIsoCurrency } from "@/store/slice";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { FadeInLeft } from "react-native-reanimated";
 
 export default function SelectCurrency() {
 
@@ -23,7 +23,7 @@ export default function SelectCurrency() {
   }
 
   return (
-    <Animated.View style={styles.viewBox} entering={FadeIn}>
+    <Animated.View style={styles.viewBox} entering={FadeInLeft}>
       <Header title="Selecciona una divisa" backArrow backCB={() => router.navigate('/CreatePayment')}/>
       <KeyboardAvoidingView style={styles.bodyBox}>
         <SearchBar value={search} setValue={setSearch}/>
