@@ -1,10 +1,8 @@
-import { router } from "expo-router";
 import { Pressable, StyleSheet, Text } from "react-native";
 import WalletAddIcon from "./SVGComponents/WalletAddIcon";
 import { colors } from "@/constants/colors";
 import { RootState } from "@/store/appStore";
 import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
-import { resetState } from "@/store/slice";
 
 type NewPaymentButton = { dispatch: ThunkDispatch<{
   payment: RootState;

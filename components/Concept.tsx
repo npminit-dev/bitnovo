@@ -2,7 +2,7 @@ import { colors } from "@/constants/colors";
 import { RootState } from "@/store/appStore";
 import { setPaymentConcept } from "@/store/slice";
 import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, useState } from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 
 

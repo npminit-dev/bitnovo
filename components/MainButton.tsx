@@ -1,6 +1,6 @@
 import { colors } from "@/constants/colors";
 import { PropsWithChildren } from "react";
-import { Pressable, StyleProp, StyleSheet, ViewStyle, Text } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 type ButtonProps = { disabled?: boolean, text?: string, action?: () => void }
 

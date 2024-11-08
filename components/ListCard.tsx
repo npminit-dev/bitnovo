@@ -3,11 +3,11 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { colors } from "@/constants/colors";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-type ListCardProps = { title:string, subtitle:string, img:string, appearDelay?:number, action?:() => void }
+type ListCardProps = { title:string, subtitle:string, img:string, action?:() => void }
 
-export default function ListCard({ title, subtitle, img, appearDelay, action }: ListCardProps) {
+export default function ListCard({ title, subtitle, img, action }: ListCardProps) {
   return (
-    <Animated.View entering={FadeIn.delay(appearDelay || 0)}>
+    <View>
       <Pressable style={styles.pressableBox} onPress={action}>
         <Image source={img as ImageSourcePropType} style={styles.image}/>
         <View style={styles.contentBox}>
@@ -18,7 +18,7 @@ export default function ListCard({ title, subtitle, img, appearDelay, action }: 
           <Entypo name="chevron-small-right" size={24} color={colors.SECONDARY_TEXT} />
         </View>
       </Pressable>
-    </Animated.View>
+    </View>
   )
 }
 

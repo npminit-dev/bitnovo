@@ -6,4 +6,4 @@ export const sleep = (ms: number) => {
 
 export const formatLocaleCurrency = (amount:string, symbol:string) => 
   new Intl.NumberFormat(getLocales()[0].languageTag || 'es', { style: 'currency', currency: symbol })
-    .format(parseInt(amount))
+    .format(parseInt(amount || '0'))

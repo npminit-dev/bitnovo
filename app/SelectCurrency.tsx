@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import { router } from "expo-router";
 import { useState } from "react";
-import { View, KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import 'react-native-get-random-values';
 import { v4 as uuid } from "uuid";
 import { CURRENCIES } from "@/constants/data";
@@ -29,15 +29,26 @@ export default function SelectCurrency() {
         <SearchBar value={search} setValue={setSearch}/>
         <ScrollView style={styles.currencyList}>
         {
+          search === '' ?
           CURRENCIES.map((currency, i) => {
             return <ListCard
               key={uuid()}
               title={currency.currencyName}
               subtitle={currency.ISOCode}
               img={currency.img}
-              appearDelay={(i+1) * 40}
               action={() => handleSelectCurrency(currency.ISOCode)}
             />
+          }) :
+          CURRENCIES.filter(country => new RegExp(`${search}`, 'gi').test(country.currencyName)).map((country, i) => {
+            return (
+              <ListCard
+                title={country.currencyName}
+                subtitle={country.ISOCode}
+                img={country.img || ''}
+                key={uuid()}
+                action={() => handleSelectCurrency(country.ISOCode)}
+              />
+            )
           })
         }
         </ScrollView>

@@ -35,7 +35,6 @@ export default function SelectCountryCode() {
                   subtitle={country.name}
                   img={country.img || ''}
                   key={uuid()}
-                  appearDelay={(i+1) * 40}
                   action={() => handleSelect(country.code)}
                 />
               )
@@ -47,7 +46,6 @@ export default function SelectCountryCode() {
                   subtitle={country.name}
                   img={country.img || ''}
                   key={uuid()}
-                  appearDelay={(i+1) * 40}
                   action={() => handleSelect(country.code)}
                 />
               )

@@ -1,39 +1,10 @@
 import { FontSource } from "expo-font";
 
 export const FONTMAPPINGDATA: Record<string, FontSource> = {
-'Inter-Black': require('../assets/fonts/Inter-Black.ttf'),
-    'Inter-BlackItalic': require('../assets/fonts/Inter-BlackItalic.ttf'),
-    'Inter-Bold': require('../assets/fonts/Inter-Bold.ttf'),
-    'Inter-BoldItalic': require('../assets/fonts/Inter-BoldItalic.ttf'),
-    'Inter-ExtraBold': require('../assets/fonts/Inter-ExtraBold.ttf'),
-    'Inter-ExtraBoldItalic': require('../assets/fonts/Inter-ExtraBoldItalic.ttf'),
-    'Inter-ExtraLight': require('../assets/fonts/Inter-ExtraLight.ttf'),
-    'Inter-Italic': require('../assets/fonts/Inter-Italic.ttf'),
-    'Inter-Light': require('../assets/fonts/Inter-Light.ttf'),
-    'Inter-LightItalic': require('../assets/fonts/Inter-LightItalic.ttf'),
-    'Inter-Medium': require('../assets/fonts/Inter-Medium.ttf'),
-    'Inter-MediumItalic': require('../assets/fonts/Inter-MediumItalic.ttf'),
-    'Inter-Regular': require('../assets/fonts/Inter-Regular.ttf'),
-    'Inter-SemiBold': require('../assets/fonts/Inter-SemiBold.ttf'),
-    'Inter-SemiBoldItalic': require('../assets/fonts/Inter-SemiBoldItalic.ttf'),
-    'Inter-Thin': require('../assets/fonts/Inter-Thin.ttf'),
-    'Inter-ThinItalic': require('../assets/fonts/Inter-ThinItalic.ttf'),
-    'Mulish-Black': require('../assets/fonts/Mulish-Black.ttf'),
-    'Mulish-BlackItalic': require('../assets/fonts/Mulish-BlackItalic.ttf'),
-    'Mulish-Bold': require('../assets/fonts/Mulish-Bold.ttf'),
-    'Mulish-BoldItalic': require('../assets/fonts/Mulish-BoldItalic.ttf'),
-    'Mulish-ExtraBold': require('../assets/fonts/Mulish-ExtraBold.ttf'),
-    'Mulish-ExtraBoldItalic': require('../assets/fonts/Mulish-ExtraBoldItalic.ttf'),
-    'Mulish-ExtraLight': require('../assets/fonts/Mulish-ExtraLight.ttf'),
-    'Mulish-ExtraLightItalic': require('../assets/fonts/Mulish-ExtraLightItalic.ttf'),
-    'Mulish-Italic': require('../assets/fonts/Mulish-Italic.ttf'),
-    'Mulish-Light': require('../assets/fonts/Mulish-Light.ttf'),
-    'Mulish-LightItalic': require('../assets/fonts/Mulish-LightItalic.ttf'),
-    'Mulish-Medium': require('../assets/fonts/Mulish-Medium.ttf'),
-    'Mulish-MediumItalic': require('../assets/fonts/Mulish-MediumItalic.ttf'),
-    'Mulish-Regular': require('../assets/fonts/Mulish-Regular.ttf'),
-    'Mulish-SemiBold': require('../assets/fonts/Mulish-SemiBold.ttf'),
-    'Mulish-SemiBoldItalic': require('../assets/fonts/Mulish-SemiBoldItalic.ttf'),
+  'Mulish-Bold': require('../assets/fonts/Mulish-Bold.ttf'),
+  'Mulish-Medium': require('../assets/fonts/Mulish-Medium.ttf'),
+  'Mulish-Regular': require('../assets/fonts/Mulish-Regular.ttf'),
+  'Mulish-SemiBold': require('../assets/fonts/Mulish-SemiBold.ttf'),
 }
 
 export const REQUEST_HEADERS = {
@@ -50,7 +21,7 @@ export const REQUEST_HEADERS = {
   }
 }
 
-export type Country = { name:string, code:string, img:string }
+export type Country = { name: string, code: string, img: string }
 
 export const COUNTRIES: Array<Country> = [
   {
@@ -72,7 +43,7 @@ export const COUNTRIES: Array<Country> = [
     name: 'South Georgia and the S...',
     code: '+500',
     img: require('../assets/images/flags/united-kingdom.png')
-  }, 
+  },
   {
     name: 'Guatemala',
     code: '+502',
@@ -100,7 +71,7 @@ export const COUNTRIES: Array<Country> = [
   }
 ]
 
-export type Currency = { currencyName:string, ISOCode:string, img:string }
+export type Currency = { currencyName: string, ISOCode: string, img: string }
 
 export const CURRENCIES: Array<Currency> = [
   {

@@ -1,22 +1,14 @@
 import ShareHeader from "@/components/ShareHeader";
-import ExportIcon from "@/components/SVGComponents/ExportIcon";
-import LinkIcon from "@/components/SVGComponents/LinkIcon";
-import ScanBarCode from "@/components/SVGComponents/ScanBarCode";
-import SmsIcon from "@/components/SVGComponents/SmsIcon";
-import WalletAddIcon from "@/components/SVGComponents/WalletAddIcon";
-import WhatsAppIcon from "@/components/SVGComponents/WhatsAppIcon";
 import { colors } from "@/constants/colors";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, View, Text, TextInput, Linking } from "react-native";
-import Entypo from '@expo/vector-icons/Entypo';
+import { StyleSheet, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { useEffect, useState } from "react";
 import SuccessModal from "@/components/SuccessModal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/appStore";
-import { resetState, setPhoneNumber } from "@/store/slice";
+import { resetState } from "@/store/slice";
 import useWebSocket from "@/hooks/useWebSocket";
-import { Share } from "react-native";
 import QRShare from "@/components/QRShare";
 import PhoneShare from "@/components/PhoneShare";
 import EmailShare from "@/components/EmailShare";
@@ -34,10 +26,6 @@ export default function SharePayment() {
     paymentGateway, 
     paymentIdentifier 
   } = useSelector((state: RootState) => state.payment);
-
-  useEffect(() => {
-    console.log(paymentGateway)
-  }, [])
 
   const paid = useWebSocket(paymentIdentifier as string)
   const [modalOpen, setModalOpen] = useState<boolean>(false)

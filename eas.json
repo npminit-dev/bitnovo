@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 13.1.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_X_DEVICE_ID": "c38f9e55-bbed-4dd8-b821-ed968e219192"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_X_DEVICE_ID": "c38f9e55-bbed-4dd8-b821-ed968e219192"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_X_DEVICE_ID": "c38f9e55-bbed-4dd8-b821-ed968e219192"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

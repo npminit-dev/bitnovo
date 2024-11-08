@@ -1,15 +1,22 @@
 import { router } from "expo-router";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, ToastAndroid } from "react-native";
 import ScanBarCode from "./SVGComponents/ScanBarCode";
 import LinkIcon from "./SVGComponents/LinkIcon";
 import { colors } from "@/constants/colors";
+import * as Clipboard from 'expo-clipboard'
 
 type QRShareProps = { paymentGateway:string }
 
 export default function QRShare({ paymentGateway }: QRShareProps) {
+
+  const handleCopyClipboard = async () => {
+    await Clipboard.setStringAsync(paymentGateway);
+    ToastAndroid.showWithGravityAndOffset('URL copiada al portapapeles', 3500, 0, 0, 400)
+  }
+
   return (
     <View style={styles.qrShareBox}>
-      <Pressable style={{ ...styles.shareBox, flex: 1 }}>
+      <Pressable style={{ ...styles.shareBox, flex: 1 }} onPress={() => handleCopyClipboard()}>
         <LinkIcon height={20} width={20} />
         <Text style={styles.shareText}>{paymentGateway}</Text>
       </Pressable>

@@ -1,4 +1,3 @@
-import { colors } from "@/constants/colors"
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useEffect } from "react"
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated"

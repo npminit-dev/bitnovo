@@ -1,6 +1,5 @@
 import { colors } from "@/constants/colors";
 import { StyleSheet, View, Text } from "react-native";
-import Svg, { Path } from "react-native-svg";
 import MoneyTimeIcon from "./SVGComponents/MoneyTimeIcon";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { formatCurrency } from "react-native-format-currency";

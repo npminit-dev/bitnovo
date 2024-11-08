@@ -6,10 +6,9 @@ import { AppDispatch, RootState } from "@/store/appStore";
 import { createPayment } from "@/store/slice";
 import { router } from "expo-router";
 import { useState } from "react";
-import { View, KeyboardAvoidingView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { colors } from "@/constants/colors";
 import LoadingIcon from "@/components/LoadingIcon";
 
